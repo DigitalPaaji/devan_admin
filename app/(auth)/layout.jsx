@@ -1,28 +1,23 @@
 "use client"
+import Loading from '@/components/Loading'
 import Slider from '@/components/Slider'
 import ThemeProvider from '@/components/ThemeProvider'
 import { base_url } from '@/components/utils'
+import { loginVerify } from '@/components/verifyLogin'
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 axios.defaults.withCredentials = true
 
 
 const layout = ({children}) => {
-const fetchSuperAdmin = async()=>{
-    try {
-        const response = await axios.get(`${base_url}/auth/verify-admin`)
-        const data = await response.data;
-        console.log(data)
-    } catch (error) {
-        
-    }
-}
-
+const [loading,setLoading]=useState(true)
 useEffect(()=>{
-    fetchSuperAdmin()
+    loginVerify(setLoading)
 },[])
 
-
+if(loading){
+return <Loading  />
+}
 
 
   return (

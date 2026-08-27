@@ -99,10 +99,9 @@ const GetUserContent = ({ setShowCreate }) => {
     return () => clearTimeout(timer);
   }, [searchInput, currentSearch]);
 
-  useEffect(() => {
-    const controller = new AbortController();
 
-    const fetchUsers = async () => {
+
+const fetchUsers = async () => {
       try {
         setLoading(true);
         setError("");
@@ -116,8 +115,7 @@ const GetUserContent = ({ setShowCreate }) => {
               ...(currentSearch && {
                 search: currentSearch,
               }),
-            },
-            signal: controller.signal,
+            }
           }
         );
 
@@ -129,7 +127,7 @@ const GetUserContent = ({ setShowCreate }) => {
           );
         }
 
-        setUsers(Array.isArray(data.users) ? data.users : []);
+        setUsers(Array.isArray(data.experts) ? data.experts : []);
 
         setPagination({
           totalUsers: data.pagination?.totalUsers || 0,
@@ -164,17 +162,27 @@ const GetUserContent = ({ setShowCreate }) => {
         setError(message);
         setUsers([]);
       } finally {
-        if (!controller.signal.aborted) {
+      
           setLoading(false);
           setRefreshing(false);
         }
-      }
+      
     };
+
+  useEffect(() => {
+  
+
+    
 
     fetchUsers();
 
-    return () => controller.abort();
+    
   }, [currentPage, currentSearch, refreshKey]);
+
+
+useEffect(()=>{
+  fetchUsers()
+},[])
 
   const handleRefresh = () => {
     setRefreshing(true);
@@ -373,7 +381,7 @@ const GetUserContent = ({ setShowCreate }) => {
                   ))
                 : users.map((user) => (
                     <tr
-                      key={user.id}
+                      key={user._id}
                       className="transition hover:bg-slate-50 dark:hover:bg-slate-900/70"
                     >
                       <td className="px-5 py-4">
@@ -460,7 +468,7 @@ const GetUserContent = ({ setShowCreate }) => {
             ))
           : users.map((user) => (
               <article
-                key={user.id}
+                key={user._id}
                 className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950"
               >
                 <div className="flex items-start gap-3">

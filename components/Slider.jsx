@@ -25,6 +25,7 @@ import {
   FiUsers,
   FiX,
 } from "react-icons/fi";
+import { FaYoutube } from "react-icons/fa";
 
 const menuItems = [
   {
@@ -58,9 +59,14 @@ const menuItems = [
     href: "/certificates",
   },
   {
-    title: "Learning Center",
+    title: "Learning Center Article",
     icon: FiBookOpen,
     href: "/learning-center",
+  },
+    {
+    title: "Learning Center YT",
+    icon: FaYoutube,
+    href: "/learning-yt",
   },
   {
     title: "Manage News",
@@ -87,11 +93,11 @@ const menuItems = [
     icon: FiGlobe,
     href: "/content",
   },
-  {
-    title: "Reports & Analytics",
-    icon: FiBarChart2,
-    href: "/reports",
-  },
+  // {
+  //   title: "Reports & Analytics",
+  //   icon: FiBarChart2,
+  //   href: "/reports",
+  // },
 ];
 
 const Slider = () => {
