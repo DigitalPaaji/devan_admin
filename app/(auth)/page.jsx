@@ -48,9 +48,6 @@ import { base_url, img_url } from "@/components/utils";
 
 axios.defaults.withCredentials = true;
 
-
-
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -63,6 +60,28 @@ ChartJS.register(
   Filler
 );
 
+/* =========================================================
+   COLOR HELPERS FOR VIBRANT CHARTS
+========================================================= */
+const vibrantColors = [
+  "#FF6384", // Vibrant Pink
+  "#36A2EB", // Bright Blue
+  "#FFCE56", // Sunny Yellow
+  "#4BC0C0", // Teal/Mint
+  "#9966FF", // Purple
+  "#FF9F40", // Orange
+  "#F92672", // Neon Pink
+  "#A6E22E", // Neon Green
+  "#66D9EF", // Neon Blue
+  "#FD971F", // Neon Orange
+  "#8A2BE2", // Blue Violet
+  "#00FF7F", // Spring Green
+];
+
+const getVibrantColors = (count) => {
+  return Array.from({ length: count }, (_, i) => vibrantColors[i % vibrantColors.length]);
+};
+
 
 /* =========================================================
    PAGE
@@ -71,8 +90,6 @@ ChartJS.register(
 const Page = () => {
   const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
-
-
 
   /* =======================================================
      FETCH DASHBOARD
@@ -104,12 +121,9 @@ const Page = () => {
     }
   };
 
-
   useEffect(() => {
     fetchData();
   }, []);
-
-
 
 
   const totalArticleViews = useMemo(() => {
@@ -137,7 +151,6 @@ const Page = () => {
             <div className="mt-3 h-4 w-80 animate-pulse rounded bg-gray-200 dark:bg-slate-800" />
           </div>
 
-
           {/* Cards */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-5">
             {[1, 2, 3, 4, 5].map((item) => (
@@ -148,14 +161,10 @@ const Page = () => {
             ))}
           </div>
 
-
           {/* Charts */}
           <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
-
             <div className="h-[400px] animate-pulse rounded-2xl bg-white dark:bg-slate-900 xl:col-span-2" />
-
             <div className="h-[400px] animate-pulse rounded-2xl bg-white dark:bg-slate-900" />
-
           </div>
 
         </div>
@@ -167,7 +176,6 @@ const Page = () => {
   if (!dashboard) {
     return null;
   }
-
 
   const {
     overview = {},
@@ -188,7 +196,6 @@ const Page = () => {
       iconBg: "bg-blue-100 dark:bg-blue-500/10",
       iconColor: "text-blue-600 dark:text-blue-400",
     },
-
     {
       title: "Experts",
       value: overview?.experts?.total || 0,
@@ -197,7 +204,6 @@ const Page = () => {
       iconBg: "bg-purple-100 dark:bg-purple-500/10",
       iconColor: "text-purple-600 dark:text-purple-400",
     },
-
     {
       title: "Articles",
       value: overview?.articles?.total || 0,
@@ -206,7 +212,6 @@ const Page = () => {
       iconBg: "bg-emerald-100 dark:bg-emerald-500/10",
       iconColor: "text-emerald-600 dark:text-emerald-400",
     },
-
     {
       title: "Jobs",
       value: overview?.jobs?.total || 0,
@@ -215,7 +220,6 @@ const Page = () => {
       iconBg: "bg-orange-100 dark:bg-orange-500/10",
       iconColor: "text-orange-600 dark:text-orange-400",
     },
-
     {
       title: "Applications",
       value: overview?.applications?.total || 0,
@@ -237,46 +241,42 @@ const Page = () => {
     labels: monthlyContent.map(
       (item) => item.month
     ),
-
     datasets: [
       {
         label: "Users",
-        data: monthlyContent.map(
-          (item) => item.users
-        ),
+        data: monthlyContent.map((item) => item.users),
+        borderColor: "#9966FF",
+        backgroundColor: "rgba(153, 102, 255, 0.2)",
         borderWidth: 2,
         tension: 0.4,
-        fill: false,
+        fill: true,
       },
-
       {
         label: "Articles",
-        data: monthlyContent.map(
-          (item) => item.articles
-        ),
+        data: monthlyContent.map((item) => item.articles),
+        borderColor: "#36A2EB",
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
         borderWidth: 2,
         tension: 0.4,
-        fill: false,
+        fill: true,
       },
-
       {
         label: "Jobs",
-        data: monthlyContent.map(
-          (item) => item.jobs
-        ),
+        data: monthlyContent.map((item) => item.jobs),
+        borderColor: "#FF9F40",
+        backgroundColor: "rgba(255, 159, 64, 0.2)",
         borderWidth: 2,
         tension: 0.4,
-        fill: false,
+        fill: true,
       },
-
       {
         label: "Events",
-        data: monthlyContent.map(
-          (item) => item.events
-        ),
+        data: monthlyContent.map((item) => item.events),
+        borderColor: "#4BC0C0",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderWidth: 2,
         tension: 0.4,
-        fill: false,
+        fill: true,
       },
     ],
   };
@@ -288,9 +288,7 @@ const Page = () => {
 
   const lineOptions = {
     responsive: true,
-
     maintainAspectRatio: false,
-
     plugins: {
       legend: {
         position: "bottom",
@@ -299,37 +297,30 @@ const Page = () => {
           padding: 20,
         },
       },
-
       tooltip: {
         mode: "index",
         intersect: false,
       },
     },
-
     interaction: {
       mode: "index",
       intersect: false,
     },
-
     scales: {
       x: {
         grid: {
           display: false,
         },
-
         ticks: {
           color: "#94a3b8",
         },
       },
-
       y: {
         beginAtZero: true,
-
         ticks: {
           precision: 0,
           color: "#94a3b8",
         },
-
         grid: {
           color: "rgba(148,163,184,0.12)",
         },
@@ -345,18 +336,13 @@ const Page = () => {
   const articleStatus = charts?.articleStatus || [];
 
   const articleStatusData = {
-    labels: articleStatus.map(
-      (item) => item.name
-    ),
-
+    labels: articleStatus.map((item) => item.name),
     datasets: [
       {
-        data: articleStatus.map(
-          (item) => item.value
-        ),
-
+        data: articleStatus.map((item) => item.value),
+        backgroundColor: getVibrantColors(articleStatus.length),
         borderWidth: 0,
-
+        hoverOffset: 4,
         spacing: 4,
       },
     ],
@@ -370,18 +356,13 @@ const Page = () => {
   const jobStatus = charts?.jobStatus || [];
 
   const jobStatusData = {
-    labels: jobStatus.map(
-      (item) => item.name
-    ),
-
+    labels: jobStatus.map((item) => item.name),
     datasets: [
       {
-        data: jobStatus.map(
-          (item) => item.value
-        ),
-
+        data: jobStatus.map((item) => item.value),
+        backgroundColor: getVibrantColors(jobStatus.length).reverse(), // reversed for variety
         borderWidth: 0,
-
+        hoverOffset: 4,
         spacing: 4,
       },
     ],
@@ -396,18 +377,13 @@ const Page = () => {
     charts?.contentDistribution || [];
 
   const contentDistributionData = {
-    labels: contentDistribution.map(
-      (item) => item.name
-    ),
-
+    labels: contentDistribution.map((item) => item.name),
     datasets: [
       {
-        data: contentDistribution.map(
-          (item) => item.value
-        ),
-
+        data: contentDistribution.map((item) => item.value),
+        backgroundColor: getVibrantColors(contentDistribution.length + 3).slice(3), // Shifted array for variety
         borderWidth: 0,
-
+        hoverOffset: 4,
         spacing: 4,
       },
     ],
@@ -420,15 +396,11 @@ const Page = () => {
 
   const doughnutOptions = {
     responsive: true,
-
     maintainAspectRatio: false,
-
     cutout: "68%",
-
     plugins: {
       legend: {
         position: "bottom",
-
         labels: {
           usePointStyle: true,
           padding: 18,
@@ -446,28 +418,18 @@ const Page = () => {
   const applications = charts?.applications || [];
 
   const jobApplicationData = {
-    labels: jobs.map(
-      (item) => item.month
-    ),
-
+    labels: jobs.map((item) => item.month),
     datasets: [
       {
         label: "Jobs",
-
-        data: jobs.map(
-          (item) => item.value
-        ),
-
+        data: jobs.map((item) => item.value),
+        backgroundColor: "#FF6384", // Vibrant Pink
         borderRadius: 6,
       },
-
       {
         label: "Applications",
-
-        data: applications.map(
-          (item) => item.value
-        ),
-
+        data: applications.map((item) => item.value),
+        backgroundColor: "#FFCE56", // Sunny Yellow
         borderRadius: 6,
       },
     ],
@@ -476,39 +438,31 @@ const Page = () => {
 
   const barOptions = {
     responsive: true,
-
     maintainAspectRatio: false,
-
     plugins: {
       legend: {
         position: "bottom",
-
         labels: {
           usePointStyle: true,
           padding: 20,
         },
       },
     },
-
     scales: {
       x: {
         grid: {
           display: false,
         },
-
         ticks: {
           color: "#94a3b8",
         },
       },
-
       y: {
         beginAtZero: true,
-
         ticks: {
           precision: 0,
           color: "#94a3b8",
         },
-
         grid: {
           color: "rgba(148,163,184,0.12)",
         },
@@ -523,7 +477,6 @@ const Page = () => {
 
   const formatDate = (date) => {
     if (!date) return "";
-
     return new Date(date).toLocaleDateString(
       "en-IN",
       {
@@ -541,11 +494,9 @@ const Page = () => {
 
   const getImageUrl = (image) => {
     if (!image) return null;
-
     if (image.startsWith("http")) {
       return image;
     }
-
     return `${img_url}${image}`;
   };
 
@@ -581,29 +532,21 @@ const Page = () => {
           dark:shadow-none
         "
       >
-
         <div className="flex items-start justify-between">
-
           <div>
-
             <p className="text-sm font-medium text-gray-500 dark:text-slate-400">
               {title}
             </p>
-
             <h3 className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
               {value}
             </h3>
-
             <div className="mt-2 flex items-center gap-1 text-xs text-gray-500 dark:text-slate-500">
               <FaArrowUp className="text-emerald-500" />
-
               <span>
                 {sub}
               </span>
             </div>
-
           </div>
-
 
           <div
             className={`
@@ -620,9 +563,7 @@ const Page = () => {
           >
             {icon}
           </div>
-
         </div>
-
       </div>
     );
   };
@@ -654,23 +595,17 @@ const Page = () => {
           ${className}
         `}
       >
-
         <div className="mb-5">
-
           <h3 className="text-lg font-bold text-gray-900 dark:text-white">
             {title}
           </h3>
-
           {subtitle && (
             <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
               {subtitle}
             </p>
           )}
-
         </div>
-
         {children}
-
       </div>
     );
   };
@@ -692,20 +627,15 @@ const Page = () => {
         dark:text-white
       "
     >
-
       <div className="mx-auto max-w-[1600px] p-4 sm:p-6 lg:p-8">
-
 
         {/* =================================================
             HEADER
         ================================================= */}
 
         <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
-
           <div>
-
             <div className="flex items-center gap-3">
-
               <div
                 className="
                   flex
@@ -721,23 +651,16 @@ const Page = () => {
               >
                 <FaChartLine />
               </div>
-
               <div>
-
                 <h1 className="text-2xl font-bold sm:text-3xl">
                   Dashboard
                 </h1>
-
                 <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
                   Overview of your Sterilization Champions platform
                 </p>
-
               </div>
-
             </div>
-
           </div>
-
 
           <div
             className="
@@ -760,7 +683,6 @@ const Page = () => {
             "
           >
             <FaCalendarAlt className="text-[#2F6F5C]" />
-
             {new Date().toLocaleDateString(
               "en-IN",
               {
@@ -769,9 +691,7 @@ const Page = () => {
                 year: "numeric",
               }
             )}
-
           </div>
-
         </div>
 
 
@@ -780,14 +700,12 @@ const Page = () => {
         ================================================= */}
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-5">
-
           {overviewCards.map((card) => (
             <StatCard
               key={card.title}
               {...card}
             />
           ))}
-
         </div>
 
 
@@ -796,55 +714,46 @@ const Page = () => {
         ================================================= */}
 
         <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-8">
-
           <MiniStat
             icon={<MdOutlineArticle />}
             label="Published Articles"
             value={overview?.articles?.published}
           />
-
           <MiniStat
             icon={<FaGraduationCap />}
             label="Education"
             value={overview?.education?.total}
           />
-
           <MiniStat
             icon={<FaCalendarAlt />}
             label="Events"
             value={overview?.events?.total}
           />
-
           <MiniStat
             icon={<FaQuestionCircle />}
             label="Challenges"
             value={overview?.challenges?.total}
           />
-
           <MiniStat
             icon={<FaCheckCircle />}
             label="Active Challenges"
             value={overview?.challenges?.active}
           />
-
           <MiniStat
             icon={<FaClock />}
             label="Draft Jobs"
             value={overview?.jobs?.draft}
           />
-
           <MiniStat
             icon={<FaTrophy />}
             label="Champions"
             value={overview?.champions?.total}
           />
-
           <MiniStat
             icon={<FaAward />}
             label="Hall of Fame"
             value={overview?.champions?.hallOfFame}
           />
-
         </div>
 
 
@@ -853,37 +762,30 @@ const Page = () => {
         ================================================= */}
 
         <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
-
           <ChartCard
             title="Platform Activity"
             subtitle="Monthly users and content activity"
             className="xl:col-span-2"
           >
-
             <div className="h-[350px]">
               <Line
                 data={monthlyContentData}
                 options={lineOptions}
               />
             </div>
-
           </ChartCard>
-
 
           <ChartCard
             title="Content Distribution"
             subtitle="Total platform content"
           >
-
             <div className="h-[350px]">
               <Doughnut
                 data={contentDistributionData}
                 options={doughnutOptions}
               />
             </div>
-
           </ChartCard>
-
         </div>
 
 
@@ -893,19 +795,16 @@ const Page = () => {
 
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
 
-
           <ChartCard
             title="Article Status"
             subtitle="Published, draft and rejected articles"
           >
-
             <div className="h-[300px]">
               <Doughnut
                 data={articleStatusData}
                 options={doughnutOptions}
               />
             </div>
-
           </ChartCard>
 
 
@@ -913,14 +812,12 @@ const Page = () => {
             title="Job Status"
             subtitle="Current job posting status"
           >
-
             <div className="h-[300px]">
               <Doughnut
                 data={jobStatusData}
                 options={doughnutOptions}
               />
             </div>
-
           </ChartCard>
 
 
@@ -928,14 +825,12 @@ const Page = () => {
             title="Jobs & Applications"
             subtitle="Monthly job and application activity"
           >
-
             <div className="h-[300px]">
               <Bar
                 data={jobApplicationData}
                 options={barOptions}
               />
             </div>
-
           </ChartCard>
 
         </div>
@@ -951,49 +846,28 @@ const Page = () => {
             title="Challenge Activity"
             subtitle="Challenges and submitted answers"
           >
-
             <div className="h-[300px]">
-
               <Bar
                 data={{
-                  labels: (
-                    charts?.challenges || []
-                  ).map(
-                    (item) => item.month
-                  ),
-
+                  labels: (charts?.challenges || []).map((item) => item.month),
                   datasets: [
                     {
                       label: "Challenges",
-
-                      data: (
-                        charts?.challenges || []
-                      ).map(
-                        (item) => item.value
-                      ),
-
+                      data: (charts?.challenges || []).map((item) => item.value),
+                      backgroundColor: "#36A2EB", // Vibrant Blue
                       borderRadius: 6,
                     },
-
                     {
                       label: "Answers",
-
-                      data: (
-                        charts?.answers || []
-                      ).map(
-                        (item) => item.value
-                      ),
-
+                      data: (charts?.answers || []).map((item) => item.value),
+                      backgroundColor: "#A6E22E", // Vibrant Neon Green
                       borderRadius: 6,
                     },
                   ],
                 }}
-
                 options={barOptions}
               />
-
             </div>
-
           </ChartCard>
 
 
@@ -1001,42 +875,25 @@ const Page = () => {
             title="Monthly Users"
             subtitle="New user registrations"
           >
-
             <div className="h-[300px]">
-
               <Line
-
                 data={{
-                  labels: (
-                    charts?.users || []
-                  ).map(
-                    (item) => item.month
-                  ),
-
+                  labels: (charts?.users || []).map((item) => item.month),
                   datasets: [
                     {
                       label: "New Users",
-
-                      data: (
-                        charts?.users || []
-                      ).map(
-                        (item) => item.value
-                      ),
-
+                      data: (charts?.users || []).map((item) => item.value),
+                      borderColor: "#F92672", // Vibrant Hot Pink
+                      backgroundColor: "rgba(249, 38, 114, 0.2)",
                       fill: true,
-
                       tension: 0.4,
-
                       borderWidth: 2,
                     },
                   ],
                 }}
-
                 options={lineOptions}
               />
-
             </div>
-
           </ChartCard>
 
         </div>
@@ -1048,7 +905,6 @@ const Page = () => {
 
         <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
 
-
           {/* =================================================
               RECENT CHAMPIONS
           ================================================= */}
@@ -1057,16 +913,10 @@ const Page = () => {
             title="Recent Champions"
             subtitle="Latest recognition records"
           >
-
             <div className="space-y-4">
-
               {(recent?.champions || []).map(
                 (champion) => {
-
-                  const image =
-                    getImageUrl(
-                      champion?.userId?.image
-                    );
+                  const image = getImageUrl(champion?.userId?.image);
 
                   return (
                     <div
@@ -1083,7 +933,6 @@ const Page = () => {
                         dark:border-slate-800
                       "
                     >
-
                       <div
                         className="
                           flex
@@ -1099,14 +948,10 @@ const Page = () => {
                           text-white
                         "
                       >
-
                         {image ? (
                           <img
                             src={image}
-                            alt={
-                              champion?.userId?.fullname ||
-                              "Champion"
-                            }
+                            alt={champion?.userId?.fullname || "Champion"}
                             className="h-full w-full object-cover"
                           />
                         ) : (
@@ -1114,39 +959,23 @@ const Page = () => {
                             ?.charAt(0)
                             ?.toUpperCase()
                         )}
-
                       </div>
-
 
                       <div className="min-w-0 flex-1">
-
                         <p className="truncate text-sm font-semibold text-gray-900 dark:text-white">
-                          {
-                            champion?.userId
-                              ?.fullname ||
-                            "Unknown User"
-                          }
+                          {champion?.userId?.fullname || "Unknown User"}
                         </p>
-
                         <p className="mt-1 text-xs capitalize text-gray-500 dark:text-slate-400">
-                          {champion?.type?.replace(
-                            "_",
-                            " "
-                          )}
+                          {champion?.type?.replace("_", " ")}
                         </p>
-
                       </div>
 
-
                       <FaTrophy className="shrink-0 text-[#B08D57]" />
-
                     </div>
                   );
                 }
               )}
-
             </div>
-
           </ChartCard>
 
 
@@ -1158,73 +987,50 @@ const Page = () => {
             title="Recent Articles"
             subtitle={`${totalArticleViews} views from recent articles`}
           >
-
             <div className="space-y-4">
+              {(recent?.articles || []).map((article) => (
+                <div
+                  key={article._id}
+                  className="
+                    flex
+                    gap-3
+                    rounded-xl
+                    border
+                    border-gray-100
+                    p-3
 
-              {(recent?.articles || []).map(
-                (article) => (
-
-                  <div
-                    key={article._id}
-                    className="
-                      flex
-                      gap-3
-                      rounded-xl
-                      border
-                      border-gray-100
-                      p-3
-
-                      dark:border-slate-800
-                    "
-                  >
-
-                    <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-slate-800">
-
-                      {article?.thumbnail ? (
-                        <img
-                          src={getImageUrl(
-                            article.thumbnail
-                          )}
-                          alt={article.title}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center text-gray-400">
-                          <FaBookOpen />
-                        </div>
-                      )}
-
-                    </div>
-
-
-                    <div className="min-w-0 flex-1">
-
-                      <h4 className="line-clamp-2 text-sm font-semibold text-gray-900 dark:text-white">
-                        {article.title}
-                      </h4>
-
-                      <div className="mt-2 flex items-center gap-3 text-xs text-gray-500 dark:text-slate-400">
-
-                        <span>
-                          {article.category}
-                        </span>
-
-                        <span className="flex items-center gap-1">
-                          <FaEye />
-                          {article.views || 0}
-                        </span>
-
+                    dark:border-slate-800
+                  "
+                >
+                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-slate-800">
+                    {article?.thumbnail ? (
+                      <img
+                        src={getImageUrl(article.thumbnail)}
+                        alt={article.title}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-gray-400">
+                        <FaBookOpen />
                       </div>
-
-                    </div>
-
+                    )}
                   </div>
 
-                )
-              )}
-
+                  <div className="min-w-0 flex-1">
+                    <h4 className="line-clamp-2 text-sm font-semibold text-gray-900 dark:text-white">
+                      {article.title}
+                    </h4>
+                    <div className="mt-2 flex items-center gap-3 text-xs text-gray-500 dark:text-slate-400">
+                      <span>{article.category}</span>
+                      <span className="flex items-center gap-1">
+                        <FaEye />
+                        {article.views || 0}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-
           </ChartCard>
 
 
@@ -1236,85 +1042,62 @@ const Page = () => {
             title="Recent Jobs"
             subtitle="Latest job postings"
           >
-
             <div className="space-y-4">
+              {(recent?.jobs || []).map((job) => (
+                <div
+                  key={job._id}
+                  className="
+                    rounded-xl
+                    border
+                    border-gray-100
+                    p-4
 
-              {(recent?.jobs || []).map(
-                (job) => (
-
-                  <div
-                    key={job._id}
-                    className="
-                      rounded-xl
-                      border
-                      border-gray-100
-                      p-4
-
-                      dark:border-slate-800
-                    "
-                  >
-
-                    <div className="flex items-start justify-between gap-3">
-
-                      <div className="min-w-0">
-
-                        <h4 className="line-clamp-2 text-sm font-semibold text-gray-900 dark:text-white">
-                          {job.title}
-                        </h4>
-
-                        <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
-                          {job.category}
-                        </p>
-
-                      </div>
-
-
-                      <span
-                        className="
-                          shrink-0
-                          rounded-full
-                          bg-emerald-100
-                          px-2.5
-                          py-1
-                          text-[10px]
-                          font-bold
-                          text-emerald-700
-
-                          dark:bg-emerald-500/10
-                          dark:text-emerald-400
-                        "
-                      >
-                        {job.status}
-                      </span>
-
+                    dark:border-slate-800
+                  "
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <h4 className="line-clamp-2 text-sm font-semibold text-gray-900 dark:text-white">
+                        {job.title}
+                      </h4>
+                      <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
+                        {job.category}
+                      </p>
                     </div>
 
+                    <span
+                      className="
+                        shrink-0
+                        rounded-full
+                        bg-emerald-100
+                        px-2.5
+                        py-1
+                        text-[10px]
+                        font-bold
+                        text-emerald-700
 
-                    <div className="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-slate-400">
-
-                      <span className="flex items-center gap-1">
-                        <FaBriefcase />
-                        {job?.location?.city ||
-                          "India"}
-                      </span>
-
-                      <span className="flex items-center gap-1">
-                        <FaUsers />
-                        {job.applicationsCount || 0}
-                        {" "}applications
-                      </span>
-
-                    </div>
-
+                        dark:bg-emerald-500/10
+                        dark:text-emerald-400
+                      "
+                    >
+                      {job.status}
+                    </span>
                   </div>
 
-                )
-              )}
-
+                  <div className="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-slate-400">
+                    <span className="flex items-center gap-1">
+                      <FaBriefcase />
+                      {job?.location?.city || "India"}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <FaUsers />
+                      {job.applicationsCount || 0} applications
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
-
           </ChartCard>
-
 
         </div>
 
@@ -1335,52 +1118,38 @@ const Page = () => {
             dark:bg-slate-900
           "
         >
-
           <div className="flex flex-wrap items-center justify-between gap-5">
-
             <div>
-
               <h3 className="font-semibold text-gray-900 dark:text-white">
                 Platform Summary
               </h3>
-
               <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
                 Current content and community overview
               </p>
-
             </div>
 
-
             <div className="flex flex-wrap gap-3">
-
               <SummaryBadge
                 icon={<FaBookOpen />}
                 text={`${overview?.articles?.published || 0} Published Articles`}
               />
-
               <SummaryBadge
                 icon={<FaBriefcase />}
                 text={`${overview?.jobs?.published || 0} Published Jobs`}
               />
-
               <SummaryBadge
                 icon={<FaCalendarAlt />}
                 text={`${overview?.events?.published || 0} Published Events`}
               />
-
               <SummaryBadge
                 icon={<FaTrophy />}
                 text={`${overview?.champions?.hallOfFame || 0} Hall of Fame`}
               />
-
             </div>
-
           </div>
-
         </div>
 
       </div>
-
     </div>
   );
 };
@@ -1395,7 +1164,6 @@ const MiniStat = ({
   label,
   value,
 }) => {
-
   return (
     <div
       className="
@@ -1412,23 +1180,17 @@ const MiniStat = ({
         dark:bg-slate-900
       "
     >
-
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#2F6F5C]/10 text-[#2F6F5C] dark:bg-[#2F6F5C]/20">
         {icon}
       </div>
-
       <div className="min-w-0">
-
         <p className="truncate text-[11px] text-gray-500 dark:text-slate-500">
           {label}
         </p>
-
         <p className="text-lg font-bold text-gray-900 dark:text-white">
           {value || 0}
         </p>
-
       </div>
-
     </div>
   );
 };
@@ -1442,7 +1204,6 @@ const SummaryBadge = ({
   icon,
   text,
 }) => {
-
   return (
     <div
       className="
@@ -1464,11 +1225,9 @@ const SummaryBadge = ({
       <span className="text-[#2F6F5C]">
         {icon}
       </span>
-
       {text}
     </div>
   );
 };
-
 
 export default Page;
