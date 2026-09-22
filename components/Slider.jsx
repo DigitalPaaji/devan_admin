@@ -53,11 +53,11 @@ const menuItems = [
     icon: FiUserCheck,
     href: "/champions",
   },
-  {
-    title: "Champion Certificates",
-    icon: FiUpload,
-    href: "/certificates",
-  },
+  // {
+  //   title: "Champion Certificates",
+  //   icon: FiUpload,
+  //   href: "/certificates",
+  // },
   {
     title: "Learning Center Article",
     icon: FiBookOpen,

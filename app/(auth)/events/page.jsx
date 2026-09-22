@@ -26,7 +26,7 @@ axios.defaults.withCredentials = true;
 
 const Page = () => {
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-6 text-gray-900 transition-colors dark:bg-black dark:text-white md:px-6">
+    <div className=" overflow-auto h-screen bg-gray-50 px-4 py-6 text-gray-900 transition-colors dark:bg-black dark:text-white md:px-6">
       <Suspense fallback={<EventSkeleton />}>
         <Events />
       </Suspense>
@@ -509,21 +509,7 @@ const EventRow = ({ event }) => {
             <FaEye className="text-sm" />
           </Link>
 
-          {/* <button
-            type="button"
-            title="Edit"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition hover:border-yellow-200 hover:bg-yellow-50 hover:text-yellow-600 dark:border-zinc-800 dark:text-gray-400 dark:hover:border-yellow-500/30 dark:hover:bg-yellow-500/10 dark:hover:text-yellow-400"
-          >
-            <FaEdit className="text-sm" />
-          </button> */}
-
-          {/* <button
-            type="button"
-            title="Delete"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600 dark:border-zinc-800 dark:text-gray-400 dark:hover:border-red-500/30 dark:hover:bg-red-500/10 dark:hover:text-red-400"
-          >
-            <FaTrash className="text-sm" />
-          </button> */}
+       
         </div>
       </td>
     </tr>

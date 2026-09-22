@@ -153,10 +153,10 @@ try {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 dark:bg-[#111] md:p-6">
+    <div className=" overflow-auto  h-screen bg-gray-50 p-4 dark:bg-[#111] md:p-6">
       <div className="mx-auto max-w-5xl space-y-6">
 
-        {/* Header */}
+     
         <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-[#2b2b2b] dark:bg-[#181818]">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
 
@@ -261,7 +261,7 @@ try {
                 Description
               </p>
 
-              <div className="mt-2 leading-7 text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{__html:event.description}}>
+              <div className="mt-2 leading-7 overflow-auto max-w-xl text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{__html:event.description}}>
                 
               </div>
             </div>

@@ -251,7 +251,7 @@ try {
               </p>
 
               <div
-                className="prose max-w-none text-gray-800 dark:prose-invert dark:text-gray-300"
+                className="prose max-w-xl overflow-auto text-gray-800 dark:prose-invert dark:text-gray-300"
                 dangerouslySetInnerHTML={{
                   __html: news.description,
                 }}

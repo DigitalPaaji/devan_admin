@@ -20,6 +20,8 @@ import {
   FiX,
 } from "react-icons/fi";
 
+
+
 const initialFormData = {
   fullname: "",
   email: "",
